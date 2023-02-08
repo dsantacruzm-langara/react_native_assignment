@@ -18,17 +18,17 @@ export default function MovieTabsLayout() {
     //   }}
     >
       <Tab.Screen
-        name="Tab1"
+        name="Movies"
         component={MovieScreen}
         // options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen
-        name="Tab2"
+        name="Search Results"
         component={SearchScreen}
         // options={{ tabBarLabel: 'Updates' }}
       />
       <Tab.Screen
-        name="Tab3"
+        name="TV Shows"
         component={TvScreen}
         // options={{ tabBarLabel: 'Profile' }}
       />

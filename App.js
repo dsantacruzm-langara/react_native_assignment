@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
 
 import MovieTabsLayout from "./src/layout/MovieTabsLayout";
+import MovieTvDetailScreen from "./src/screens/MovieTvDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,15 +22,8 @@ export default function App() {
         }}
       >
         <Stack.Screen name="MovieApp" component={MovieTabsLayout} />
+        <Stack.Screen name="Details" component={MovieTvDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });

@@ -5,15 +5,18 @@ import { getMovieListByCategory } from "../api/movie_api";
 import MovieTvCard from "../components/MovieTvCard";
 import { useState } from "react";
 
-export default function MovieScreen() {
+export default function MovieScreen({ navigation }) {
   const [movieList, setMovieList] = useState([]);
   const [pickedCategory, setPickedCategory] = useState(["now_playing"]);
 
   const fetchDataFromApi = async (pickedOption) => {
     const movieList = await getMovieListByCategory(pickedOption);
-    // console.log(movieList);
     setMovieList(movieList);
   };
+
+  const moveToDetailScreen = (passingParams) => {
+    navigation.navigate('Details', {id: passingParams})
+  }
 
   const dropDownOptions = [
     { label: "Now playing", value: "now_playing" },
@@ -32,9 +35,12 @@ export default function MovieScreen() {
         data={movieList}
         renderItem={({ item }) => (
           <MovieTvCard
+            id={item.id}
+            image={item.poster_path}
             title={item.title}
             popularity={item.popularity}
             releaseDate={item.release_date}
+            onDetailButtonPress={moveToDetailScreen}
           />
         )}
       />
