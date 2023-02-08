@@ -9,11 +9,14 @@ export default function MovieScreen({ navigation }) {
   const [movieList, setMovieList] = useState([]);
   const [pickedCategory, setPickedCategory] = useState(["now_playing"]);
 
+
+  //Fetch Info
   const fetchDataFromApi = async (pickedOption) => {
     const movieList = await getMovieListByCategory(pickedOption);
     setMovieList(movieList);
   };
 
+  //Move to Details Screen
   const moveToDetailScreen = (passingParams) => {
     navigation.navigate('Details', {id: passingParams})
   }
