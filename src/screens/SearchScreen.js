@@ -1,9 +1,83 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  FlatList,
+} from "react-native";
 
-export default function SearchScreen() {
+import DropDownPicker from "react-native-dropdown-picker";
+import { SearchByCategoryAndKeyword } from "../api/movie_api";
+import MovieTvCard from "../components/MovieTvCard";
+
+export default function SearchScreen({ navigation }) {
+  //Dropdown categories
+  const dropDownOptions = [
+    { label: "Multi", value: "multi" },
+    { label: "Movie", value: "movie" },
+    { label: "Tv", value: "tv" },
+  ];
+
+  //Dropdown states
+  const [open, setOpen] = useState(false);
+  const [searchCategory, setSearchCategory] = useState("multi");
+  const [options, setOptions] = useState(dropDownOptions);
+
+  //TextInput States
+  const [queryValue, setQueryValue] = useState("");
+
+  //Search result state
+  const [queryResponse, setQueryResponse] = useState([]);
+
+  //Fetch Info
+  const fetchDataFromApi = async (searchCategory, query) => {
+    const response = await SearchByCategoryAndKeyword(searchCategory, query);
+    setQueryResponse(response);
+  };
+
+  //Move to Details Screen
+  const moveToDetailScreen = (passingParams) => {
+    navigation.navigate("Details", { id: passingParams });
+  };
+
   return (
     <View style={styles.container}>
-      <Text>SearchScreen</Text>
+      <TextInput
+        style={{ backgroundColor: "white", borderWidth: 1 }}
+        placeholder="Type here to translate!"
+        onChangeText={setQueryValue}
+        value={queryValue}
+        onSubmitEditing={() => fetchDataFromApi(searchCategory, queryValue)}
+      />
+      <View>
+        <DropDownPicker
+          open={open}
+          value={searchCategory}
+          items={options}
+          setOpen={setOpen}
+          setValue={setSearchCategory}
+          setItems={setOptions}
+        />
+        <Button
+          title="Search"
+          onPress={() => fetchDataFromApi(searchCategory, queryValue)}
+        />
+      </View>
+      <FlatList
+        data={queryResponse}
+        renderItem={({ item }) => (
+          <MovieTvCard
+            id={item.id}
+            image={item.poster_path}
+            title={item.title}
+            popularity={item.popularity}
+            releaseDate={item.release_date}
+            onDetailButtonPress={moveToDetailScreen}
+          />
+        )}
+      />
     </View>
   );
 }
