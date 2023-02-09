@@ -38,8 +38,12 @@ export default function SearchScreen({ navigation }) {
   };
 
   //Move to Details Screen
-  const moveToDetailScreen = (passingParams) => {
-    navigation.navigate("Details", { id: passingParams });
+  const moveToMovieDetailScreen = (passingParams) => {
+    navigation.navigate("Details", { id: passingParams, fromScreen: "movies"});
+  };
+
+  const moveToTvShowDetailScreen = (passingParams) => {
+    navigation.navigate("Details", { id: passingParams, fromScreen: "tv" });
   };
 
   return (
@@ -71,10 +75,10 @@ export default function SearchScreen({ navigation }) {
           <MovieTvCard
             id={item.id}
             image={item.poster_path}
-            title={item.title}
+            title={"title" in item ? item.title : item.name}
             popularity={item.popularity}
             releaseDate={item.release_date}
-            onDetailButtonPress={moveToDetailScreen}
+            onDetailButtonPress={"title" in item ? moveToMovieDetailScreen : moveToTvShowDetailScreen}
           />
         )}
       />

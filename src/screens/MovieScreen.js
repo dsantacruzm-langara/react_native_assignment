@@ -18,7 +18,7 @@ export default function MovieScreen({ navigation }) {
 
   //Move to Details Screen
   const moveToDetailScreen = (passingParams) => {
-    navigation.navigate('Details', {id: passingParams})
+    navigation.navigate('Details', {id: passingParams, fromScreen: "movies"})
   }
 
   const dropDownOptions = [

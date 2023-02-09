@@ -18,7 +18,7 @@ export default function TvScreen({ navigation }) {
 
   //Move to Details Screen
   const moveToDetailScreen = (passingParams) => {
-    navigation.navigate('Details', {id: passingParams})
+    navigation.navigate('Details', {id: passingParams, fromScreen: "tv"})
   }
 
   const dropDownOptions = [
@@ -39,7 +39,7 @@ export default function TvScreen({ navigation }) {
           <MovieTvCard
             id={item.id}
             image={item.poster_path}
-            title={item.title}
+            title={item.name}
             popularity={item.popularity}
             releaseDate={item.release_date}
             onDetailButtonPress={moveToDetailScreen}
