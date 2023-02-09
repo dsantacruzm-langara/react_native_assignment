@@ -4,10 +4,10 @@ export default function MovieTvCard(props) {
   return (
     <View style={styles.container}>
       <Image
-        style={styles.logo}
+        style={styles.picture}
         source={{uri: `https://image.tmdb.org/t/p/original${props.image}`}}
       />
-      <View>
+      <View style={styles.infoWrap}>
         <Text style={{ fontWeight: "bold" }}>{props.title}</Text>
         <Text>Popularity: {props.popularity}</Text>
         <Text>Release Date: {props.releaseDate}</Text>
@@ -25,11 +25,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     padding: 24,
-    margin: 5,
-    borderWidth: 1,
+    marginTop: 1,
+    marginBottom: 1,
   },
-  logo: {
+  picture: {
     width: 100,
     height: 100,
   },
+  infoWrap: {
+    padding: 10,
+  }
 });

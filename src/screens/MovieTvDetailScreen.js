@@ -17,16 +17,16 @@ export default function MovieTvDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontWeight: "bold" }}>{movieDetail.title}</Text>
+      <Text style={styles.title}>{movieDetail.title}</Text>
       <Image
-        style={styles.logo}
+        style={styles.image}
         source={{
           uri: `https://image.tmdb.org/t/p/original${movieDetail?.poster_path}`,
         }}
       />
-      <Text>{movieDetail.overview}</Text>
+      <Text >{movieDetail.overview}</Text>
       <View style={styles.cont}>
-        <Text>Popularity: {movieDetail.popularity}  |  </Text>
+        <Text>Popularity: {movieDetail.popularity} | </Text>
         <Text>Release Date: {movieDetail.release_date}</Text>
       </View>
     </View>
@@ -36,16 +36,20 @@ export default function MovieTvDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    margin: 5,
-    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 20,
+    paddingLeft: 40,
+    paddingRight: 40,
+    columnGap: 20,
   },
-  cont: {
-    flex: 1,
-    flexDirection: 'row',
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
   },
-  logo: {
+  image: {
     width: 200,
     height: 200,
+    padding: 20,
   },
 });
