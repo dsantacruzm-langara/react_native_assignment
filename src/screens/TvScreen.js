@@ -9,7 +9,6 @@ export default function TvScreen({ navigation }) {
   const [tvShowsList, setTvShowsList] = useState([]);
   const [pickedCategory, setPickedCategory] = useState(["now_playing"]);
 
-
   //Fetch Info
   const fetchDataFromApi = async (pickedOption) => {
     const response = await getTvShowListByCategory(pickedOption);
@@ -18,8 +17,8 @@ export default function TvScreen({ navigation }) {
 
   //Move to Details Screen
   const moveToDetailScreen = (passingParams) => {
-    navigation.navigate('Details', {id: passingParams, fromScreen: "tv"})
-  }
+    navigation.navigate("Details", { id: passingParams, fromScreen: "tv" });
+  };
 
   const dropDownOptions = [
     { label: "Popular", value: "popular" },
@@ -45,6 +44,7 @@ export default function TvScreen({ navigation }) {
             onDetailButtonPress={moveToDetailScreen}
           />
         )}
+        contentContainerStyle={styles.list}
       />
     </View>
   );
@@ -52,11 +52,17 @@ export default function TvScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
     paddingTop: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingHorizontal: 15,
+  },
+  list: {
+    marginTop: 20,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingBottom: 100,
   },
 });

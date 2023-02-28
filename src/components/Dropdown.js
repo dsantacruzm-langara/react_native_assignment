@@ -9,7 +9,7 @@ const Dropdown = ({ dropDownOptions, fetchData }) => {
   const [items, setItems] = useState(dropDownOptions);
 
   return (
-    <View style={styles.dropdown}>
+    <View style={styles.container}>
       <DropDownPicker
         open={open}
         value={value}
@@ -20,6 +20,7 @@ const Dropdown = ({ dropDownOptions, fetchData }) => {
         onChangeValue={(value) => {
           fetchData(value);
         }}
+        style={styles.dropdown}
       />
     </View>
   );
@@ -29,8 +30,7 @@ export default Dropdown;
 
 const styles = StyleSheet.create({
   dropdown: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: '50%'
-  },
+    borderRadius: 10,
+    borderColor: '#AAAAAA',
+  }
 });

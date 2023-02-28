@@ -39,7 +39,7 @@ export default function SearchScreen({ navigation }) {
 
   //Move to Details Screen
   const moveToMovieDetailScreen = (passingParams) => {
-    navigation.navigate("Details", { id: passingParams, fromScreen: "movies"});
+    navigation.navigate("Details", { id: passingParams, fromScreen: "movies" });
   };
 
   const moveToTvShowDetailScreen = (passingParams) => {
@@ -48,26 +48,33 @@ export default function SearchScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={{ backgroundColor: "white", borderWidth: 1 }}
-        placeholder="Type here to translate!"
-        onChangeText={setQueryValue}
-        value={queryValue}
-        onSubmitEditing={() => fetchDataFromApi(searchCategory, queryValue)}
-      />
-      <View>
-        <DropDownPicker
-          open={open}
-          value={searchCategory}
-          items={options}
-          setOpen={setOpen}
-          setValue={setSearchCategory}
-          setItems={setOptions}
+      <View style={styles.inputWrapper}>
+        <Text style={styles.label}>Search Movie/TV Show Name</Text>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Search movie or tv show"
+          onChangeText={setQueryValue}
+          value={queryValue}
+          onSubmitEditing={() => fetchDataFromApi(searchCategory, queryValue)}
         />
-        <Button
-          title="Search"
-          onPress={() => fetchDataFromApi(searchCategory, queryValue)}
-        />
+      </View>
+      <View style={styles.searchTypeWrapper}>
+        <Text style={styles.label}>Choose Search Type</Text>
+        <View style={styles.dropDownButtonWrap}>
+          <DropDownPicker
+            open={open}
+            value={searchCategory}
+            items={options}
+            setOpen={setOpen}
+            setValue={setSearchCategory}
+            setItems={setOptions}
+            style={{ marginBottom: 10 }}
+          />
+          <Button
+            title="Search"
+            onPress={() => fetchDataFromApi(searchCategory, queryValue)}
+          />
+        </View>
       </View>
       <FlatList
         data={queryResponse}
@@ -78,9 +85,14 @@ export default function SearchScreen({ navigation }) {
             title={"title" in item ? item.title : item.name}
             popularity={item.popularity}
             releaseDate={item.release_date}
-            onDetailButtonPress={"title" in item ? moveToMovieDetailScreen : moveToTvShowDetailScreen}
+            onDetailButtonPress={
+              "title" in item
+                ? moveToMovieDetailScreen
+                : moveToTvShowDetailScreen
+            }
           />
         )}
+        style={{ marginTop: 30 }}
       />
     </View>
   );
@@ -88,8 +100,34 @@ export default function SearchScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "nowrap",
+    alignItems: "stretch",
+    paddingTop: 20,
+    paddingHorizontal: 40,
+  },
+  inputWrapper: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  label: {
+    fontSize: 15,
+    marginBottom: 5,
+  },
+  inputText: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 40,
+    paddingHorizontal: 10,
+  },
+  searchTypeWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 20,
+  },
+  dropDownButtonWrap: {
+    display: "flex",
   },
 });
